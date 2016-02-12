@@ -1,0 +1,202 @@
+.radialProgressBar {
+  width: 200px;
+  height: 200px;
+}
+.radialProgressBar .circleMask {
+  -webkit-transform: translateZ(0); /*remove and see what happens if you wonder what this is for. more info: http://stackoverflow.com/a/27233053*/
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #0f0;
+}
+.radialProgressBar .circleMask .innerCircleMask {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  border-radius: 50%;
+  z-index: 2;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  background-color: #fff;
+}
+.radialProgressBar .circleMask .clipperContainer {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 100px, 100px, 0);
+}
+.radialProgressBar .circleMask .clipperContainer .clipper {
+  width: 50%;
+  height: 50%;
+  transition: all ease 0.2s;
+  transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+  background-color: #0f0;
+  transform-origin: 100% 100%;
+  -webkit-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+}
+.radialProgressBar .circleMask .progressContainer {
+  z-index: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.radialProgressBar .circleMask .progressContainer .progress {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background-color: #87ceeb;
+  transition: all ease 0.2s;
+  transform-origin: 100% 100%;
+  -webkit-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+}
+.radialProgressBar .circleMask .progressContainer .progress:nth-of-type(1) {
+  transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+}
+.radialProgressBar .circleMask .progressContainer .progress:nth-of-type(2) {
+  transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+}
+.radialProgressBar .circleMask .progressContainer .progress:nth-of-type(3) {
+  transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+}
+.radialProgressBar .circleMask .progressContainer .progress:nth-of-type(4) {
+  transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+.half {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+.half button {
+  width: 300px;
+  height: 100px;
+  font-size: 20px;
+}
+.centered {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+.centered .contentProvider {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.centered .contentProvider .content {
+  display: inline-block;
+}
+$color_background = white;
+$color_next       = lime;
+$color_progress   = skyblue;
+$deg              = 0deg;
+$widthHeight      = 200px;
+$spinnerRadius    = 10px;
+vendorRotate(deg)
+  transform: rotate(deg);
+  -ms-transform: rotate(deg);
+  -webkit-transform: rotate(deg);
+  
+ global-transition()
+  transition: all ease .2s;
+  
+.radialProgressBar
+  width: $widthHeight;
+  height: @width;
+  .circleMask
+    -webkit-transform: translateZ(0); /*remove and see what happens if you wonder what this is for. more info: http://stackoverflow.com/a/27233053*/
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: @width;
+    border-radius: 50%;
+    background-color: $color_next;
+    .innerCircleMask
+      position: absolute;
+      left: $spinnerRadius;
+      top: @left;
+      border-radius: 50%;
+      z-index: 2;
+      width: "calc(100% - %s)" % ($spinnerRadius * 2);
+      height: @width;
+      background-color: $color_background;
+    .clipperContainer
+      z-index: 1;
+      position: absolute;
+      width: 100%;
+      height: @width;
+      clip: rect(0,$widthHeight / 2,$widthHeight / 2,0);
+      .clipper
+        width: 50%;
+        height: @width;
+        global-transition();
+        vendorRotate($deg / 4);
+        background-color: $color_next;
+        transform-origin: 100% 100%;
+        -webkit-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+    .progressContainer
+      z-index: 0;
+      position: absolute;
+      width: 100%;
+      height: @height;
+      
+      .progress
+        position: absolute;
+        width: 50%;
+        height: @width;
+        background-color: $color_progress;
+        global-transition();
+        transform-origin: 100% 100%;
+        -webkit-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+        for i in (1..4)
+          &:nth-of-type({i})
+            vendorRotate($deg * (i / 4));
+          
+*
+  padding: 0;
+  margin: 0;
+body, html
+  width: 100%;
+  height: 100%;
+.half
+  float: left;
+  width: 50%;
+  height: 100%;
+  button
+    width: 300px;
+    height: 100px;
+    font-size: 20px;
+.centered
+  width: 100%;
+  height: 100%;
+  display: table;
+  .contentProvider
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    .content
+      display: inline-block;
